@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#12272b">
+  <title>Laboratório em Apuros</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="vendor/three.min.js" defer></script>
+  <script src="laboratory-3d.js" defer></script>
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <div class="board-wrap"><div id="board" class="board" role="img" aria-label="Laboratório 3D: amostra ao fundo, bancada e entrega à frente."></div></div>
+
+    <header class="game-hud">
+      <div class="level-info"><span id="level-label">FASE 1 DE 3</span><strong id="level-description">Fase 1 · Água</strong></div>
+      <div class="stats" aria-label="Estado do jogo">
+        <div class="stat"><span>TEMPO</span><strong id="clock">02:00</strong></div>
+        <div class="stat"><span>PONTOS</span><strong id="score">000</strong></div>
+        <div class="stat"><span>ENTREGAS</span><strong id="deliveries">0/1</strong></div>
+      </div>
+    </header>
+
+    <aside class="objective" aria-labelledby="orders-title">
+      <div class="objective-top">
+        <div><span class="objective-kicker">MISSÃO ATUAL</span><h2 id="orders-title">O que fazer</h2></div>
+        <div class="game-actions">
+          <button class="fullscreen-button" id="fullscreen-button" type="button" aria-label="Entrar em ecrã inteiro" aria-pressed="false">⛶</button>
+          <button class="help-button" id="help-button" type="button" aria-label="Como jogar">?</button>
+        </div>
+      </div>
+      <div class="orders" id="orders"></div>
+      <p class="objective-hint" id="objective-hint">Recolhe, transforma e entrega. Repete até completar a fase!</p>
+      <p id="fullscreen-status" class="fullscreen-status" role="status" aria-live="polite"></p>
+    </aside>
+
+    <div class="board-footer">
+      <div><span class="inventory-label">NA MÃO</span><strong id="inventory">Mãos vazias</strong><span class="nearby-station" id="nearby-station">Nenhuma bancada por perto</span></div>
+      <p id="message" role="status" aria-live="polite">Aproxima-te de uma bancada para interagir.</p>
+    </div>
+    <div class="touch-controls" aria-label="Controlos de toque">
+      <div class="dpad">
+        <button data-move="up" class="up" aria-label="Mover para cima">▲</button>
+        <button data-move="left" class="left" aria-label="Mover para a esquerda">◀</button>
+        <button data-move="down" class="down" aria-label="Mover para baixo">▼</button>
+        <button data-move="right" class="right" aria-label="Mover para a direita">▶</button>
+      </div>
+      <button id="touch-action" class="action-button">INTERAGIR <span>✦</span></button>
+    </div>
+    <p class="rotate-hint">Para uma vista maior, roda o telemóvel na horizontal.</p>
+  </main>
+
+  <div class="overlay" id="overlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description">
+      <div class="modal-icon" id="modal-icon">⚗</div>
+      <div class="eyebrow">BEM-VINDO AO LABORATÓRIO</div>
+      <h2 id="modal-title">Pronto para a<br><em>experiência?</em></h2>
+      <p id="modal-description">Em cada fase, apanha os reagentes, evita os obstáculos e acerta a equação. Na fase 2, atravessa as duas vias com cuidado; na fase 3, atravessa o labirinto sem deixar o robô apanhar-te!</p>
+      <div class="modal-controls"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> ou setas</span><span>Desliza no laboratório</span><span><kbd>ESPAÇO</kbd> interagir</span></div>
+      <button id="start-button" class="primary-button">COMEÇAR FASE <span>→</span></button>
+      <p class="modal-note">No telemóvel, joga na horizontal. Mantém as setas premidas para andar.</p>
+    </div>
+  </div>
+  <div class="overlay" id="equation-overlay" hidden>
+    <div class="modal equation-modal" role="dialog" aria-modal="true" aria-labelledby="equation-title" aria-describedby="equation-description">
+      <div class="eyebrow">REAÇÃO QUÍMICA · SIMULAÇÃO</div>
+      <h2 id="equation-title">Acerta a equação</h2>
+      <p id="equation-description">Escolhe os menores coeficientes inteiros para ter o mesmo número de átomos de cada elemento nos dois lados.</p>
+      <form id="equation-form">
+        <div class="equation"></div>
+        <p id="equation-feedback" class="equation-feedback" role="status" aria-live="polite"></p>
+        <button class="primary-button" type="submit">VERIFICAR <span>→</span></button>
+        <button class="secondary-button" id="equation-cancel" type="button">Voltar ao laboratório</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
